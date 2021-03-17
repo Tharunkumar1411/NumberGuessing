@@ -1,85 +1,62 @@
-import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { useHistory } from 'react-router';
-import { FormControl } from '@material-ui/core';
+import React,{useState,useEffect} from 'react'
+import Card from 'react-bootstrap/Card'
+import Form from 'react-bootstrap/Form'
+import '@material-ui/core'
+import './Entry.css';
+import {useHistory} from 'react-router-dom';
+import Select from 'react-select'
 
-const useStyles = makeStyles({
-  root: {
-    width:"50%",
-    marginLeft:"auto",
-    marginRight:"auto"
-  },
-  content:{
-    textAlign:"center",
-  },
-  topNav:{
-    backgroundColor:"green",
+import {  TextField } from '@material-ui/core';
 
-  },
-  level:{
-      padding:'10px',
-      marginTop:"3px",
-      borderRadius:"15px",
-      outline:'none',
-  },
-  range:{
-    padding:'10px',
-    marginTop:"3px",
-    borderRadius:"15px",
-    outline:'none',
-  },
-  name:{
-    padding:'10px',
-    marginTop:"3px",
-    borderRadius:"15px",
-    outline:'none',
-  },
-  innerCard:{
-      marginLeft:"auto",
-      marginRight:"auto"
+function Entry(){
+ 
+   
+  const [details,setDetails] = useState({name:"",level:"",range:""});
+
+  const options = [
+    { value: 'Easy', label: 'Easy' },
+    { value: 'Medium', label: 'Medium' },
+    { value: 'Hard', label: 'Hard' }
+  ]
+
+  const optionsRange = [
+    { value: '100', label: '1-100' },
+    { value: '1000', label: '100-1000' },
+    { value: '10000', label: 'above 1000' }
+  ]
+          
+  const submitHandler = (e) => {
+    e.preventDefault()
+    console.log(details)
   }
-  
-});
+    return(
+        <div>
+            <h1 className="header">GUESSING GAME</h1>
+            <Card className="login" style={{width:'16rem',textAlign:'center',marginTop:'50px',backgroundColor:"  rgb(194, 45, 181)"}}>
+                <h5>LOGIN</h5>
+            </Card>
+            <Card className="login1" style={{width:'16rem',textAlign:'center'}}>
+                <Card.Body>
+                    <Form onSubmit={submitHandler}>
+                        <TextField type="text" placeholder="Name" onChange= {e =>setDetails({...details,name:e.target.value})} value={details.name}  required></TextField><br /><br />
 
-export default function SimpleCard() {
-    const history = useHistory();
-    useEffect(() => {
-        history.push("/");
-    })
+                      
+                        <Select options={options}  value={details.options} className="level"/><br /><br />
 
-  const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+                        <Select options={optionsRange}  value={details.range} className="level"/><br /><br />
 
-  return (
-    <Card className={classes.root}>
-      <CardContent className={classes.content}>
-        <Typography className={classes.topNav}>Guessing</Typography>  
+                       
 
-        <Card>
-            <CardActions>
-                <FormControl className={classes.innerCard}>
-                    <input placeholder="name" className={classes.name}></input>
 
-                    <select className={classes.level}>
-                        <option>Easy</option>
-                        <option>Medium</option>
-                        <option>Hard</option>
-                    </select>
+                        <button className="buttonStyle" type="submit" value="login" >ENTER</button><br /><br />
+                
+                    </Form>
+                </Card.Body>
+            </Card>
+        </div>
 
-                    <select className={classes.range}>
-                        <option>Range 1 to 100</option>
-                        <option>100 to 1000 </option>
-                        <option>more than 1000</option>
-                    </select>
-                </FormControl>
-            </CardActions>
-        </Card>  
-    </CardContent>
-    </Card>
-  );
+
+    );
 }
+
+export default Entry;
