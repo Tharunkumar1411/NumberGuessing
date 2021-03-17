@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {BrowserRouter,Switch,Route} from 'react-router-dom';
 
-import Entrance from '../src/Entrance/Entry';
+import Entrance from './Entrance/Entry';
 
 
 function App(){
