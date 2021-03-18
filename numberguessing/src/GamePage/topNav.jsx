@@ -27,8 +27,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar() {
   const history = useHistory(); 
-  const showProfile = () => {
-    history.push('/profile')
+  const quit = () => {
+    localStorage.removeItem("name");
+    history.push('/')
   }
   const classes = useStyles();
 
@@ -42,7 +43,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Number Guessing 
           </Typography>
-          <Button color="inherit" onClick={showProfile}>Quit </Button>
+          <Button color="inherit" onClick={quit}>Quit </Button>
         </Toolbar>
       </AppBar>
     </div>

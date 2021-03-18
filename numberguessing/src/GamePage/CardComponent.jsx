@@ -1,52 +1,99 @@
-import React from 'react';
-import { Button,ButtonGroup} from 'reactstrap';
-import { Container, Row, Col } from 'reactstrap';
-import './gamepage.css'
-import Card from 'react-bootstrap/Card'
-import System from '@material-ui/icons/Computer'
-import { CardContent } from '@material-ui/core';
-const Example = (props) => {
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { Button, Card, CardContent } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    backgroundColor:"rgba(210, 207, 218, 0.87)",
+  },
+  system:{
+    border:'1px solid black',
+    width:"80%",
+    marginRight:"auto",
+    marginLeft:"auto"
+  },
+  roott: {
+      margin: theme.spacing(1),
+      width: '25ch',
+      marginRight:"auto",
+    marginLeft:"auto"
+    },
+    clue:{
+      width:'70%',
+      marginRight:"auto",
+      marginLeft:"auto",
+      backgroundColor:"rgba(210, 207, 218, 0.87)",
+
+    }
+  
+}));
+
+export default function Example() {
+  const classes = useStyles();
+
+  const [number,setNumber] = useState({num:0,progress:100,clue:"Your clue is",sysnumber:"I am Ready with my number",attempts:5})
+
+
+  const submitHandler = () => {
+    
+ } 
   return (
-    <div>
+    <div className={classes.root}>
+      <Grid container spacing={3}>
         
-       <Card className="systemCard">
-           <h4 className="cardHead">System</h4>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}>System</Paper>
 
-            
-            <CardContent className="cardContent"> for number show</CardContent><br />
+          <Card className={classes.system}>
+            <CardContent>{number.sysnumber}</CardContent>
 
-            <CardContent className="cardContent">for clue show</CardContent><br />
+            <CardContent>Remaining Attempts is {number.attempts}</CardContent>
 
-       </Card>
-       <Card className="userCard">
-           <h4 className="cardHead">System</h4>
+          </Card>
+        </Grid>
 
-            
-            <CardContent className="cardContent"> for number show</CardContent><br />
+        <Grid item xs={6}>
+          <Paper className={classes.paper}>Player</Paper>
 
-            <CardContent className="cardContent">for clue show</CardContent><br />
+          <Card className={classes.system}>
+          <CardContent>waiting for player input {number.num}</CardContent>
+          <CardContent>Your Score is {number.progress}</CardContent>
+          </Card>
+          
+        </Grid>
+        
+      </Grid><br />
 
-       </Card><br />
+     
 
 
-       <ButtonGroup color="primary" aria-label="outlined primary button group" className="btnGrp">
-            <Button>1</Button>
-            <Button>2</Button>
-            <Button>3</Button>
-            <Button>4</Button>
-            <Button>5</Button>
-            <Button>6</Button>
-            <Button>7</Button>
-            <Button>8</Button>
-            <Button>9</Button>
-            <Button>0</Button><br />
-            <Button>done</Button>
-</ButtonGroup><br />
-       
+    <form className={classes.roott} noValidate autoComplete="off" >
 
-      
+      <TextField id="outlined-basic" label="Number" type="number"  variant="outlined" onChange={e => setNumber ({...number,num:e.target.value})} /><br />
+
+      <Button onClick={submitHandler} className={classes.done}>Done</Button>
+    </form>
+
+
+<Card className={classes.clue}>
+  <CardContent>{number.clue}</CardContent>
+</Card>
+
+
+    
+  
+
+
     </div>
   );
-};
-
-export default Example;
+}

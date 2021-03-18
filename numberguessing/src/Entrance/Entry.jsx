@@ -11,23 +11,20 @@ import {  TextField } from '@material-ui/core';
 function Entry(){
  
    
-  const [details,setDetails] = useState({name:"",level:"",range:""});
+  const [details,setDetails] = useState({name:"",range:0});
 
-  const options = [
-    { value: 'Easy', label: 'Easy' },
-    { value: 'Medium', label: 'Medium' },
-    { value: 'Hard', label: 'Hard' }
-  ]
+  const history = useHistory()
 
   const optionsRange = [
-    { value: '100', label: '1-100' },
-    { value: '1000', label: '100-1000' },
-    { value: '10000', label: 'above 1000' }
+    { value: 1, label: '1-100' },
+    { value: 2, label: '100-1000' },
+    { value:3, label: 'above 1000' }
   ]
           
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log(details)
+    localStorage.setItem("name",details.name)
+    history.push("/gamepage")
   }
     return(
         <div>
@@ -40,19 +37,18 @@ function Entry(){
                     <Form onSubmit={submitHandler}>
                         <TextField type="text" placeholder="Name" onChange= {e =>setDetails({...details,name:e.target.value})} value={details.name}  required></TextField><br /><br />
 
-                      
-                        <Select options={options}  value={details.options} className="level"/><br /><br />
-
-                        <Select options={optionsRange}  value={details.range} className="level"/><br /><br />
-
-                       
 
 
-                        <button className="buttonStyle" type="submit" value="login" >ENTER</button><br /><br />
+                        <Select options={optionsRange}   className="level"  onChange= {e =>setDetails({...details,range:e.options})} /><br /><br />
+
+
+                        <button className="buttonStyle" onClick={submitHandler} value="login" >ENTER</button><br /><br />
                 
                     </Form>
                 </Card.Body>
             </Card>
+
+           
         </div>
 
 

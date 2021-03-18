@@ -1,14 +1,18 @@
 import React from 'react';
 import Example from './CardComponent';
 import ButtonAppBar from './topNav';
-const GamePage = () => {
+import { Button,ButtonGroup} from 'reactstrap';
+
+const GamePage = (props) => {
     return(
         <div>
             <ButtonAppBar /><br /><br /><br />
 
-            <h2>Welcome Sreeram</h2>
+            <h2>Welcome {props.name}</h2>
 
-            <Example />
+            <Example /><br />
+
+          
         </div>
     )
 }
