@@ -3,7 +3,7 @@ import './App.css';
 import {BrowserRouter,Switch,Route} from 'react-router-dom';
 
 import Entrance from './Entrance/Entry';
-
+import Home from './GamePage/game'
 
 function App(){
 
@@ -11,7 +11,7 @@ function App(){
         <div>
             <BrowserRouter>
                 <Switch>
-                    <Route path="/" exact component={Entrance} />
+                    <Route path="/" exact component={Home} />
                  
                 </Switch>
             </BrowserRouter>
