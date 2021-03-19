@@ -16,14 +16,15 @@ function Entry(){
   const history = useHistory()
 
   const optionsRange = [
-    { value: 1, label: '1-100' },
-    { value: 2, label: '100-1000' },
-    { value:3, label: 'above 1000' }
+    { value: 100, label: '1-100' },
+    { value: 1000, label: '100-1000' },
+    { value:100000, label: 'above 1000' }
   ]
           
   const submitHandler = (e) => {
     e.preventDefault()
     localStorage.setItem("name",details.name)
+    localStorage.setItem("range",details.range)
     history.push("/gamepage")
   }
     return(
@@ -39,7 +40,7 @@ function Entry(){
 
 
 
-                        <Select options={optionsRange}   className="level"  onChange= {e =>setDetails({...details,range:e.options})} /><br /><br />
+                        <Select options={optionsRange}   className="level"  onChange= {e =>setDetails({...details,range:e.target.value})} /><br /><br />
 
 
                         <button className="buttonStyle" onClick={submitHandler} value="login" >ENTER</button><br /><br />

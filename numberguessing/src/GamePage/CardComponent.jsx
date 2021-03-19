@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -44,13 +44,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Example() {
+  
   const classes = useStyles();
+  const rang = localStorage.getItem("range");
+  const [random,setRandom] = useState([Math.floor(Math.random() * rang)])
+  const [clue,setClue] = useState("your clue is")
+  const [number,setNumber] = useState({num:0,progress:100,sysnumber:"I am Ready with my number",attempts:5});
 
-  const [number,setNumber] = useState({num:0,progress:100,clue:"Your clue is",sysnumber:"I am Ready with my number",attempts:5})
 
 
   const submitHandler = () => {
-    
+  console.log(random);
+    if(random > number.num){
+      setClue("system number is greater ");
+      setNumber.attempts((number.attempts-1));
+    }
+    else if(random < number.num){
+      setClue("system number is lesser");
+    }
+    else{
+      setClue("you won the match");
+      alert(`you won ${localStorage.getItem("name")}`);
+    }
  } 
   return (
     <div className={classes.root}>
@@ -91,7 +106,7 @@ export default function Example() {
 
 
 <Card className={classes.clue}>
-  <CardContent>{number.clue}</CardContent>
+  <CardContent>{clue}</CardContent>
 </Card>
 
 
