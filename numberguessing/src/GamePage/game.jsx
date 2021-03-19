@@ -8,7 +8,7 @@ const GamePage = (props) => {
         <div>
             <ButtonAppBar /><br /><br /><br />
 
-            <h2>Welcome {props.name}</h2>
+            <h2>Welcome {localStorage.getItem("name")}</h2>
 
             <Example /><br />
 

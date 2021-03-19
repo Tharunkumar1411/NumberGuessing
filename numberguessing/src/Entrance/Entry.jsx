@@ -30,7 +30,7 @@ function Entry(){
         <div>
             <h1 className="header">GUESSING GAME</h1>
             <Card className="login" style={{width:'16rem',textAlign:'center',marginTop:'50px',backgroundColor:"  rgb(194, 45, 181)"}}>
-                <h5>LOGIN</h5>
+                <h5>GETIN</h5>
             </Card>
             <Card className="login1" style={{width:'16rem',textAlign:'center'}}>
                 <Card.Body>
@@ -45,6 +45,7 @@ function Entry(){
                         <button className="buttonStyle" onClick={submitHandler} value="login" >ENTER</button><br /><br />
                 
                     </Form>
+                    
                 </Card.Body>
             </Card>
 

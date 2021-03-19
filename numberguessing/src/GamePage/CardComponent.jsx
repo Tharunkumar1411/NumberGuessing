@@ -14,13 +14,18 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    width:"30%",
+    marginRight:"auto",
+    marginLeft:"auto",
     backgroundColor:"rgba(210, 207, 218, 0.87)",
   },
   system:{
     border:'1px solid black',
     width:"80%",
     marginRight:"auto",
-    marginLeft:"auto"
+    marginLeft:"auto",
+    padding:"10px",
+    borderRadius:"15px"
   },
   roott: {
       margin: theme.spacing(1),
