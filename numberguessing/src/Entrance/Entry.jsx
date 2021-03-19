@@ -40,7 +40,7 @@ function Entry(){
 
 
 
-                        <Select options={optionsRange}   className="level"  onChange= {e =>setDetails({...details,range:e.target.value})} /><br /><br />
+                        <Select options={optionsRange}   className="level"   /><br /><br />
 
 
                         <button className="buttonStyle" onClick={submitHandler} value="login" >ENTER</button><br /><br />
