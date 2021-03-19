@@ -46,8 +46,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Example() {
   
   const classes = useStyles();
-  const rang = localStorage.getItem("range");
-  const [random,setRandom] = useState([Math.floor(Math.random() * rang)])
+  const [random,setRandom] = useState([Math.floor(Math.random() * 100)])
   const [clue,setClue] = useState("your clue is")
   const [number,setNumber] = useState({num:0,progress:100,sysnumber:"I am Ready with my number",attempts:5});
 
@@ -57,10 +56,11 @@ export default function Example() {
   console.log(random);
     if(random > number.num){
       setClue("system number is greater ");
-      setNumber.attempts((number.attempts-1));
+      // setNumber.attempts((number.attempts-1));
     }
     else if(random < number.num){
       setClue("system number is lesser");
+
     }
     else{
       setClue("you won the match");
@@ -94,9 +94,6 @@ export default function Example() {
         
       </Grid><br />
 
-     
-
-
     <form className={classes.roott} noValidate autoComplete="off" >
 
       <TextField id="outlined-basic" label="Number" type="number"  variant="outlined" onChange={e => setNumber ({...number,num:e.target.value})} /><br />
@@ -108,11 +105,6 @@ export default function Example() {
 <Card className={classes.clue}>
   <CardContent>{clue}</CardContent>
 </Card>
-
-
-    
-  
-
 
     </div>
   );
