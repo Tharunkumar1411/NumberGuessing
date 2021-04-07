@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Button, Card, CardContent } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import Modal from '@material-ui/core/Modal';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,34 +40,82 @@ const useStyles = makeStyles((theme) => ({
       marginLeft:"auto",
       backgroundColor:"rgba(210, 207, 218, 0.87)",
 
+    },
+    modelbody:{
+      position: 'absolute',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    }, 
+    modal:{
+      marginRight:"auto",
+      marginLeft:"auto",
     }
   
 }));
 
 export default function Example() {
-  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
   const classes = useStyles();
-  const [random,setRandom] = useState([Math.floor(Math.random() * 100)])
+  const [random,setRandom] = useState([Math.floor(Math.random() * 100)]);
   const [clue,setClue] = useState("your clue is")
-  const [number,setNumber] = useState({num:0,progress:100,sysnumber:"I am Ready with my number",attempts:5});
-
+  const [number,setNumber] = useState({num:0});
+  const [attempts,setAttempts] = useState(5);
+  const [progress,setProgress] = useState(100);
+  const [sysnumber,setSysnumber] = useState("I am Ready with my number");
+  const [open,setOpen] = useState(false);
 
 
   const submitHandler = () => {
-  console.log(random);
-    if(random > number.num){
+    console.log(random)
+   if(attempts === 1 && (random !== number.num)) {
+    setOpen(true);
+    
+   }
+
+
+    else if(random > number.num){
       setClue("system number is greater ");
-      // setNumber.attempts((number.attempts-1));
+     setAttempts(attempts-1);
+     setProgress(progress - 20);
     }
     else if(random < number.num){
       setClue("system number is lesser");
-
+      setAttempts(attempts-1);
+      setProgress(progress - 20);
     }
     else{
       setClue("you won the match");
-      alert(`you won ${localStorage.getItem("name")}`);
+      setOpen(true);
+      window.location.reload();
     }
  } 
+
+ const handleClose = () => {
+  setOpen(false);
+};
+
+
+const handleCloseer = () => {
+  window.location.reload();
+};
+ const body = (
+  <div  className={classes.modelbody}>
+    <h2 id="simple-modal-title">Text in a modal</h2>
+    <p id="simple-modal-description">
+     You won the battle with ${progress} score.
+    </p>
+    <button onClick = {handleCloseer}>done</button>
+  
+  </div>
+);
+
+
+
+
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -75,9 +124,9 @@ export default function Example() {
           <Paper className={classes.paper}>System</Paper>
 
           <Card className={classes.system}>
-            <CardContent>{number.sysnumber}</CardContent>
+            <CardContent>{sysnumber}</CardContent>
 
-            <CardContent>Remaining Attempts is {number.attempts}</CardContent>
+            <CardContent>Remaining Attempts is {attempts}</CardContent>
 
           </Card>
         </Grid>
@@ -87,7 +136,7 @@ export default function Example() {
 
           <Card className={classes.system}>
           <CardContent>waiting for player input {number.num}</CardContent>
-          <CardContent>Your Score is {number.progress}</CardContent>
+          <CardContent>Your Score is {progress}</CardContent>
           </Card>
           
         </Grid>
@@ -106,6 +155,16 @@ export default function Example() {
   <CardContent>{clue}</CardContent>
 </Card>
 
+<Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        className={classes.modal}
+      >
+        {body}
+      </Modal>
     </div>
   );
 }
+
