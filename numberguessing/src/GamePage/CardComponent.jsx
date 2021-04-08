@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor:"rgba(210, 207, 218, 0.87)",
 
     },
+    
     modelbody:{
       position: 'absolute',
       width: 400,
