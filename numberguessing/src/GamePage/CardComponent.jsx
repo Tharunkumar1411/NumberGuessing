@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2, 4, 3),
     }, 
     modal:{
-      marginRight:"auto",
-      marginLeft:"auto",
+     marginRight:"auto",
+     marginLeft:"auto",
     }
   
 }));
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Example() {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
   const classes = useStyles();
-  const [random,setRandom] = useState([Math.floor(Math.random() * 100)]);
+  const [random,setRandom] = useState([Math.floor(Math.random() * (localStorage.getItem("range")))]);
   const [clue,setClue] = useState("your clue is")
   const [number,setNumber] = useState({num:0});
   const [attempts,setAttempts] = useState(5);
@@ -89,7 +89,7 @@ export default function Example() {
     else{
       setClue("you won the match");
       setOpen(true);
-      window.location.reload();
+      
     }
  } 
 
