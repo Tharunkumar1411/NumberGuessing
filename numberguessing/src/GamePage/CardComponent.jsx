@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { Button, Card, CardContent } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
-
+import ForClues from './ForClues';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,7 +70,7 @@ export default function Example() {
 
 
   const submitHandler = () => {
-    console.log(random)
+   
    if(attempts === 1 && (random !== number.num)) {
     setOpen(true);
     
@@ -119,6 +119,7 @@ const handleCloseer = () => {
 
   return (
     <div className={classes.root}>
+      {<ForClues number={random}/>}
       <Grid container spacing={3}>
         
         <Grid item xs={6}>
