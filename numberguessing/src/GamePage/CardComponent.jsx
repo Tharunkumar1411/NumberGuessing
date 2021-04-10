@@ -119,7 +119,7 @@ const handleCloseer = () => {
 
   return (
     <div className={classes.root}>
-      {<ForClues number={random}/>}
+      {<ForClues number={random} guess={number.num}/>}
       <Grid container spacing={3}>
         
         <Grid item xs={6}>
