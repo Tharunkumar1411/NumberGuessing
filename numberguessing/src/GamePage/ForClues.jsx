@@ -12,7 +12,9 @@ const Clue = (props) => {
         const sysNum = props.number;
         const guessNum = props.guess;
 
-        function higherLesser() {
+
+        
+
             if(sysNum > guessNum){
                 var less = "lesser";
                 setClues({clueOne:less});
@@ -22,13 +24,7 @@ const Clue = (props) => {
                 setClues({clueOne:high});
                 
             }
-            
-
-        }
-        higherLesser();
-
     
-        function oddEven() {
             if(sysNum%2 === 0){
                 var even = "even";
                 setClues({clueTwo:even});
@@ -36,26 +32,13 @@ const Clue = (props) => {
                 var odd = "odd";
                 setClues({clueTwo:odd});
             }
-            
-        }
-        oddEven();
         
-        function lessMore() {
             var MoreTen = sysNum + 10;
             var lessTen = sysNum - 10;
     
             setClues({clueThree:`between ${lessTen} and ${MoreTen}`});
-    
-        }
-
-    
-        // higherLesser();
-
-    
-        // function SpecialNumber() {
-    
-        // }
-       
+        
+        
     },[])
     
     
