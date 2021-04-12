@@ -69,6 +69,8 @@ export default function Example() {
   const [open,setOpen] = useState(false);
 
 
+
+
   const submitHandler = () => {
    
    if(attempts === 1 && (random !== number.num)) {
@@ -76,7 +78,6 @@ export default function Example() {
     
    }
     else if(random > number.num){
-      setClue("system number is greater ");
      setAttempts(attempts-1);
      setProgress(progress - 20);
     }
@@ -90,6 +91,23 @@ export default function Example() {
       setOpen(true);
       
     }
+
+
+    if(attempts === 5){
+      if(clue%2 === 0){
+        setClue(`${clue}+and even`);
+      }else{
+        setClue(`${clue}+and odd`);
+      }
+    }else if(attempts===4){
+      
+      var MoreTen = clue.num + 10;
+      var lessTen = clue.num - 10;
+
+      setClue(`Number between ${lessTen} and ${MoreTen}`);
+    }
+
+
  } 
 
  const handleClose = () => {
@@ -117,7 +135,7 @@ const handleCloseer = () => {
 
   return (
     <div className={classes.root}>
-      {<ForClues number={random} guess={number.num}/>}
+      {/* {<ForClues number={random} guess={number.num}/>} */}
       <Grid container spacing={3}>
         
         <Grid item xs={6}>
