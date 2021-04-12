@@ -75,8 +75,6 @@ export default function Example() {
     setOpen(true);
     
    }
-
-
     else if(random > number.num){
       setClue("system number is greater ");
      setAttempts(attempts-1);
