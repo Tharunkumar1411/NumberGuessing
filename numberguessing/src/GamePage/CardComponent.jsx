@@ -69,45 +69,41 @@ export default function Example() {
   const [open,setOpen] = useState(false);
 
 
+  function clueSet() {
+    const greaterLesser = random > number.num;
+    const oddEven = (random) % 2 === 0;
+    var addString;
+    if(attempts === 5){
+      if(greaterLesser){
+        addString = "Secret number is greater";
+      }else{
+        addString = "Secret number is lesser"
+      }
+
+      if(oddEven){
+        addString = addString + " and is even";
+      }else{
+        addString = addString + " and is Odd";
+      }
+      setClue(addString);
+    }else if(attempts == 4){
+      
+    }
+   
+  }
 
 
   const submitHandler = () => {
-   
+   console.log(random)
    if(attempts === 1 && (random !== number.num)) {
     setOpen(true);
-    
+   }else{
+    clueSet();
+     setOpen(false);
    }
-    else if(random > number.num){
-     setAttempts(attempts-1);
-     setProgress(progress - 20);
-    }
-    else if(random < number.num){
-      setClue("system number is lesser");
-      setAttempts(attempts-1);
-      setProgress(progress - 20);
-    }
-    else{
-      setClue("you won the match");
-      setOpen(true);
-      
-    }
 
-
-    if(attempts === 5){
-      if(clue%2 === 0){
-        setClue(`${clue}+and even`);
-      }else{
-        setClue(`${clue}+and odd`);
-      }
-    }else if(attempts===4){
-      
-      var MoreTen = clue.num + 10;
-      var lessTen = clue.num - 10;
-
-      setClue(`Number between ${lessTen} and ${MoreTen}`);
-    }
-
-
+  
+  
  } 
 
  const handleClose = () => {
