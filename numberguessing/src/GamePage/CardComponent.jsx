@@ -66,7 +66,9 @@ export default function Example() {
   const [attempts,setAttempts] = useState(5);
   const [progress,setProgress] = useState(100);
   const [sysnumber,setSysnumber] = useState("I am Ready with my number");
-  const [open,setOpen] = useState(false);
+  const [winner,setWinner] = useState(false);
+  const [losser,setLosser] = useState(false);
+
 
 
   function clueSet() {
@@ -129,25 +131,26 @@ export default function Example() {
   const submitHandler = () => {
    console.log(random)
    if(random === number.num || (random !== number.num && attempts ===1)) {
-    setOpen(true);
+    setWinner(true);
    }else{
     clueSet();
-     setOpen(false);
+    setProgress(progress-20);
+     setWinner(false);
+     setLosser(false);
    }
 
-  
-  
  } 
 
  const handleClose = () => {
-  setOpen(false);
+  setWinner(false);
+  setLosser(false)
 };
 
 
 const handleCloseer = () => {
   window.location.reload();
 };
- const body = (
+ const winnerBody = (
   <div  className={classes.modelbody}>
     <h2 id="simple-modal-title">Text in a modal</h2>
     <p id="simple-modal-description">
@@ -158,8 +161,16 @@ const handleCloseer = () => {
   </div>
 );
 
-
-
+const losserBody = (
+  <div  className={classes.modelbody}>
+    <h2 id="simple-modal-title">Text in a modal</h2>
+    <p id="simple-modal-description">
+     You loss the battle with ${progress} score.
+    </p>
+    <button onClick = {handleCloseer}>done</button>
+  
+  </div>
+);
 
 
   return (
@@ -203,13 +214,23 @@ const handleCloseer = () => {
 </Card>
 
 <Modal
-        open={open}
+        open={winner}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         className={classes.modal}
       >
-        {body}
+        {winnerBody}
+      </Modal>
+
+      <Modal
+        open={losser}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        className={classes.modal}
+      >
+        {losserBody}
       </Modal>
     </div>
   );
