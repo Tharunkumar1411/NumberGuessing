@@ -74,6 +74,7 @@ export default function Example() {
     const oddEven = (random) % 2 === 0;
     var addString;
     if(attempts === 5){
+      setAttempts(attempts-1);
       if(greaterLesser){
         addString = "Secret number is greater";
       }else{
@@ -86,16 +87,48 @@ export default function Example() {
         addString = addString + " and is Odd";
       }
       setClue(addString);
-    }else if(attempts == 4){
-      
+    }else if(attempts === 4){
+      setAttempts(attempts-1);
+
+      var MoreTen = parseInt(random) + 100;
+      var lessTen = parseInt(random) - 100;
+
+      setClue(`System number lies between ${lessTen} and ${MoreTen}`);
+    }else if(attempts === 3){
+      setAttempts(attempts-1);
+
+      var MoreTen = parseInt(random) + 10;
+      var lessTen = parseInt(random) - 10;
+
+      setClue(`System number lies between ${lessTen} and ${MoreTen}`);
+  }else if(attempts === 2){
+    setAttempts(attempts-1);
+
+    var defineSysnum = random;
+    var sum = 0;
+    while(defineSysnum !== 0){
+
+      var lastDegit = defineSysnum%10;
+
+      sum = sum + lastDegit;
+
+      defineSysnum = defineSysnum/10;
+
     }
-   
+
+    setClue(`The sum of System number is ${sum}`);
+  }else if(attempts === 1){
+    setAttempts(attempts-1);
+
+    setClue("ithuku mela clue kuduka mudiyathuda deii");
+  }else{
+    setClue("error");
   }
 
-
+  }
   const submitHandler = () => {
    console.log(random)
-   if(attempts === 1 && (random !== number.num)) {
+   if(random === number.num || (random !== number.num && attempts ===1)) {
     setOpen(true);
    }else{
     clueSet();
