@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { Button, Card, CardContent } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Modal from '@material-ui/core/Modal';
-import ForClues from './ForClues';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width:"30%",
     marginRight:"auto",
     marginLeft:"auto",
-    backgroundColor:"rgba(210, 207, 218, 0.87)",
+    backgroundColor:"rgba(13, 17, 38, 0.57)",
   },
   system:{
     border:'1px solid black',
@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
     modal:{
      marginRight:"auto",
      marginLeft:"auto",
+    },innerCard:{
+      height:"40px",
+      backgroundColor:"rgba(210, 207, 218, 0.87)"
     }
   
 }));
@@ -182,9 +185,10 @@ const losserBody = (
           <Paper className={classes.paper}>System</Paper>
 
           <Card className={classes.system}>
-            <CardContent>{sysnumber}</CardContent>
+            
+            <Card className={classes.innerCard}><CardContent>{sysnumber}</CardContent></Card><br></br>
 
-            <CardContent>Remaining Attempts is {attempts}</CardContent>
+            <Card className={classes.innerCard}><CardContent>Remaining Attempts is {attempts}</CardContent></Card>
 
           </Card>
         </Grid>
@@ -193,8 +197,8 @@ const losserBody = (
           <Paper className={classes.paper}>Player</Paper>
 
           <Card className={classes.system}>
-          <CardContent>waiting for player input {number.num}</CardContent>
-          <CardContent>Your Score is {progress}</CardContent>
+          <Card className={classes.innerCard}><CardContent>waiting for player input {number.num}</CardContent></Card><br></br>
+          <Card className={classes.innerCard}><CardContent>Your Score is {progress}</CardContent></Card>
           </Card>
           
         </Grid>
