@@ -21,12 +21,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:"rgba(13, 17, 38, 0.57)",
   },
   system:{
-    border:'1px solid black',
+ 
     width:"80%",
     marginRight:"auto",
     marginLeft:"auto",
     padding:"10px",
-    borderRadius:"15px"
+    borderRadius:"15px",
+    
   },
   roott: {
       margin: theme.spacing(1),
@@ -68,7 +69,7 @@ export default function Example() {
   const [number,setNumber] = useState({num:0});
   const [attempts,setAttempts] = useState(5);
   const [progress,setProgress] = useState(100);
-  const [sysnumber,setSysnumber] = useState("I am Ready with my number");
+  const [sysnumber,setSysnumber] = useState("I am Ready");
   const [winner,setWinner] = useState(false);
   const [losser,setLosser] = useState(false);
 
@@ -182,23 +183,23 @@ const losserBody = (
       <Grid container spacing={3}>
         
         <Grid item xs={6}>
-          <Paper className={classes.paper}>System</Paper>
+          <Paper className={classes.paper}>System</Paper><br />
 
           <Card className={classes.system}>
             
             <Card className={classes.innerCard}><CardContent>{sysnumber}</CardContent></Card><br></br>
 
-            <Card className={classes.innerCard}><CardContent>Remaining Attempts is {attempts}</CardContent></Card>
+            <Card className={classes.innerCard}><CardContent>Attempts: {attempts}</CardContent></Card>
 
           </Card>
         </Grid>
 
         <Grid item xs={6}>
-          <Paper className={classes.paper}>Player</Paper>
+          <Paper className={classes.paper}>Player</Paper><br />
 
           <Card className={classes.system}>
-          <Card className={classes.innerCard}><CardContent>waiting for player input {number.num}</CardContent></Card><br></br>
-          <Card className={classes.innerCard}><CardContent>Your Score is {progress}</CardContent></Card>
+          <Card className={classes.innerCard}><CardContent>player input: {number.num}</CardContent></Card><br></br>
+          <Card className={classes.innerCard}><CardContent>Score is {progress}</CardContent></Card>
           </Card>
           
         </Grid>
