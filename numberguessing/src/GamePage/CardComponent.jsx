@@ -62,124 +62,85 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Example() {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
   const classes = useStyles();
+
   const [random,setRandom] = useState([Math.floor(Math.random() * (localStorage.getItem("range")))]);
-  const [clue,setClue] = useState("your clue is")
-  const [number,setNumber] = useState({num:0});
-  const [attempts,setAttempts] = useState(5);
-  const [progress,setProgress] = useState(100);
+  const [property,setProperty] = useState({clue:"",number:0,attempts:4,progress:100})
+
+  useEffect(() => {
+    var clue = "";
+    function clueOne(rand){
+      var range = localStorage.getItem("range");
+      if(rand > (range/2)){
+        clue += "The random number is placed 2nd half of the range";
+        clue += (rand%2 === 0)? "and is Even": " and is Odd";
+      }else{
+        clue += "The random number is placed 1nd half of the range";
+        clue += (rand%2 === 0)? "and is Even": " and is Odd";
+
+      }
+      return clue;
+    }
+
+   var finalClueOne =  clueOne(random);
+
+    setProperty({...property,clue:finalClueOne});
+  },[random,property])
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+
   const [sysnumber,setSysnumber] = useState("I am Ready");
   const [winner,setWinner] = useState(false);
   const [losser,setLosser] = useState(false);
 
+  
+const setClue = (number,rand,attempt) => {
+  var clue = "";
 
-
-  function clueSet() {
-    const greaterLesser = random > number.num;
-    const oddEven = (random) % 2 === 0;
-    var addString;
-    if(attempts === 5){
-      setAttempts(attempts-1);
-      if(greaterLesser){
-        addString = "Secret number is greater";
-      }else{
-        addString = "Secret number is lesser"
+  switch (attempt) {
+    case 4:
+      return function clueFour() {
+        if(number === 1 || number === 2){
+          clue += "Is Prime Number"
+        }else if( number%2 || number%3 || number%5 || number%7 !== 0){
+          clue += "Is Prime Number"
+        }else{
+          clue += "Is Not a Prime Number"
+        }
+        console.log(clue);
+        return clue;
       }
-
-      if(oddEven){
-        addString = addString + " and is even";
-      }else{
-        addString = addString + " and is Odd";
-      }
-      setClue(addString);
-    }else if(attempts === 4){
-      setAttempts(attempts-1);
-
-      var MoreTen = parseInt(random) + 100;
-      var lessTen = parseInt(random) - 100;
-
-      setClue(`System number lies between ${lessTen} and ${MoreTen}`);
-    }else if(attempts === 3){
-      setAttempts(attempts-1);
-
-      var MoreTen = parseInt(random) + 10;
-      var lessTen = parseInt(random) - 10;
-
-      setClue(`System number lies between ${lessTen} and ${MoreTen}`);
-  }else if(attempts === 2){
-    setAttempts(attempts-1);
-
-    var defineSysnum = random;
-    var sum = 0;
-    while(defineSysnum !== 0){
-
-      var lastDegit = defineSysnum%10;
-
-      sum = sum + lastDegit;
-
-      defineSysnum = defineSysnum/10;
-
-    }
-
-    setClue(`The sum of System number is ${sum}`);
-  }else if(attempts === 1){
-    setAttempts(attempts-1);
-
-    setClue("ithuku mela clue kuduka mudiyathuda deii");
+      break;
+    case 3:
+      return 2;
+      break;
+    case 2:
+      return 3;
+      break;
+    case 1:
+      return 4;
+      break;
+    default:
+      break;
+  }
+}
+ 
+const submitHandle = () => {
+  console.log("hi")
+  if(property.number === random){
+    alert("you won tha game");
+   
   }else{
-    setClue("error");
+    setClue(property.number,random,property.attempts)
   }
-
-  }
-  const submitHandler = () => {
-   console.log(random)
-   if(random === number.num || (random !== number.num && attempts ===1)) {
-    setWinner(true);
-   }else{
-    clueSet();
-    setProgress(progress-20);
-     setWinner(false);
-     setLosser(false);
-   }
-
- } 
-
- const handleClose = () => {
-  setWinner(false);
-  setLosser(false)
-};
+}
 
 
-const handleCloseer = () => {
-  window.location.reload();
-};
- const winnerBody = (
-  <div  className={classes.modelbody}>
-    <h2 id="simple-modal-title">Text in a modal</h2>
-    <p id="simple-modal-description">
-     You won the battle with ${progress} score.
-    </p>
-    <button onClick = {handleCloseer}>done</button>
-  
-  </div>
-);
 
-const losserBody = (
-  <div  className={classes.modelbody}>
-    <h2 id="simple-modal-title">Text in a modal</h2>
-    <p id="simple-modal-description">
-     You loss the battle with ${progress} score.
-    </p>
-    <button onClick = {handleCloseer}>done</button>
-  
-  </div>
-);
+
 
 
   return (
     <div className={classes.root}>
-      {/* {<ForClues number={random} guess={number.num}/>} */}
       <Grid container spacing={3}>
         
         <Grid item xs={6}>
@@ -189,7 +150,7 @@ const losserBody = (
             
             <Card className={classes.innerCard}><CardContent>{sysnumber}</CardContent></Card><br></br>
 
-            <Card className={classes.innerCard}><CardContent>Attempts: {attempts}</CardContent></Card>
+            <Card className={classes.innerCard}><CardContent>Attempts: {property.attempts}</CardContent></Card>
 
           </Card>
         </Grid>
@@ -198,45 +159,26 @@ const losserBody = (
           <Paper className={classes.paper}>Player</Paper><br />
 
           <Card className={classes.system}>
-          <Card className={classes.innerCard}><CardContent>player input: {number.num}</CardContent></Card><br></br>
-          <Card className={classes.innerCard}><CardContent>Score is {progress}</CardContent></Card>
+          <Card className={classes.innerCard}><CardContent>player input: {property.number}</CardContent></Card><br></br>
+          <Card className={classes.innerCard}><CardContent>Score is {property.progress}</CardContent></Card>
           </Card>
           
         </Grid>
         
       </Grid><br />
 
-    <form className={classes.roott} noValidate autoComplete="off" >
+    <form className={classes.roott} >
 
-      <TextField id="outlined-basic" label="Number" type="number"  variant="outlined" onChange={e => setNumber ({...number,num:e.target.value})} /><br />
+      <TextField id="outlined-basic" label="Number" type="number" onChange={(e)=> setProperty({...property,number:e.target.value})}  variant="outlined" /><br />
 
-      <Button onClick={submitHandler} className={classes.done}>Done</Button>
+      <Button  className={classes.done} onClick={submitHandle}>Done</Button>
     </form>
 
 
-<Card className={classes.clue}>
-  <CardContent>{clue}</CardContent>
-</Card>
+    <Card className={classes.clue}>
+      <CardContent>{property.clue}</CardContent>
+    </Card>
 
-<Modal
-        open={winner}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        className={classes.modal}
-      >
-        {winnerBody}
-      </Modal>
-
-      <Modal
-        open={losser}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        className={classes.modal}
-      >
-        {losserBody}
-      </Modal>
     </div>
   );
 }
