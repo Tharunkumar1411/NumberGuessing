@@ -85,7 +85,7 @@ export default function Example() {
    var finalClueOne =  clueOne(random);
 
     setProperty({...property,clue:finalClueOne});
-  },[random,property])
+  },[])
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 
   const [sysnumber,setSysnumber] = useState("I am Ready");
@@ -94,7 +94,8 @@ export default function Example() {
 
   
 const setClue = (number,rand,attempt) => {
-  var clue = "";
+  var clue = "tharun";
+  console.log(number,rand,attempt);
 
   switch (attempt) {
     case 4:
@@ -106,22 +107,23 @@ const setClue = (number,rand,attempt) => {
         }else{
           clue += "Is Not a Prime Number"
         }
-        console.log(clue);
-        return clue;
+     
       }
       break;
     case 3:
-      return 2;
+      
       break;
     case 2:
-      return 3;
+      
       break;
     case 1:
-      return 4;
+      
       break;
     default:
       break;
   }
+
+  console.log(clue)
 }
  
 const submitHandle = () => {
