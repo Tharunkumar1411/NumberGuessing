@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
     width:"30%",
@@ -20,12 +20,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft:"auto",
     backgroundColor:"rgba(13, 17, 38, 0.57)",
   },
+  vs:{
+    textAlign: 'center',
+
+  },
   system:{
  
-    width:"80%",
+    width:"fit-content",
     marginRight:"auto",
     marginLeft:"auto",
-    padding:"10px",
     borderRadius:"15px",
     
   },
@@ -41,20 +44,8 @@ const useStyles = makeStyles((theme) => ({
       marginLeft:"auto",
       backgroundColor:"rgba(210, 207, 218, 0.87)",
 
-    },
-    
-    modelbody:{
-      position: 'absolute',
-      width: 400,
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    }, 
-    modal:{
-     marginRight:"auto",
-     marginLeft:"auto",
-    },innerCard:{
+    }
+    ,innerCard:{
       height:"40px",
       backgroundColor:"rgba(210, 207, 218, 0.87)"
     }
@@ -75,7 +66,7 @@ export default function Example() {
         clue += "The random number is placed 2nd half of the range";
         clue += (rand%2 === 0)? " and is Even": " and is Odd";
       }else{
-        clue += "The random number is placed 1nd half of the range";
+        clue += "The random number is placed 1st half of the range";
         clue += (rand%2 === 0)? " and is Even": " and is Odd";
 
       }
@@ -93,9 +84,8 @@ export default function Example() {
   const [losser,setLosser] = useState(false);
 
   
-const setClue = (number,rand,attempt) => {
+const setClue = (number,rand,attempt,progres) => {
   var clue = "";
-  console.log(number,rand[0],attempt);
 
   switch (attempt) {
     case 4:
@@ -161,18 +151,23 @@ const setClue = (number,rand,attempt) => {
       break;
   }
 
-  setProperty({...property,clue:clue,attempts:attempt-1});
+  setProperty({...property,clue:clue,attempts:attempt-1,progress:progres-20});
+
+  if(attempt == 0 && rand !== number){
+    alert(`you loss the game score is ${property.progress-20}`);
+    window.location.reload();
+  }
 
 }
  
 const submitHandle = () => {
-  console.log("hi")
   // eslint-disable-next-line eqeqeq
   if(property.number == random){
     alert("you won tha game");
+    window.location.reload();
    
   }else{
-    setClue(property.number,random,property.attempts)
+    setClue(property.number,random,property.attempts,property.progress)
   }
 }
 
@@ -181,29 +176,26 @@ const submitHandle = () => {
     <div className={classes.root}>
       <Grid container spacing={3}>
         
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>System</Paper><br />
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>System <h5>Score is {property.progress}</h5>
+</Paper><br />
+          <h5 className={classes.vs}>vs</h5>
 
-          <Card className={classes.system}>
-            
-            <Card className={classes.innerCard}><CardContent>{sysnumber}</CardContent></Card><br></br>
+          <Paper className={classes.paper}>Player        <h5>Attempts: {property.attempts}</h5>
+</Paper><br />
 
-            <Card className={classes.innerCard}><CardContent>Attempts: {property.attempts}</CardContent></Card>
-
-          </Card>
         </Grid>
 
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>Player</Paper><br />
 
-          <Card className={classes.system}>
-          <Card className={classes.innerCard}><CardContent>player input: {property.number}</CardContent></Card><br></br>
-          <Card className={classes.innerCard}><CardContent>Score is {property.progress}</CardContent></Card>
-          </Card>
-          
-        </Grid>
-        
+    
+
       </Grid><br />
+
+      
+      <Card className={classes.system}>
+            
+  
+      </Card>
 
     <form className={classes.roott} >
 
