@@ -73,10 +73,10 @@ export default function Example() {
       var range = localStorage.getItem("range");
       if(rand > (range/2)){
         clue += "The random number is placed 2nd half of the range";
-        clue += (rand%2 === 0)? "and is Even": " and is Odd";
+        clue += (rand%2 === 0)? " and is Even": " and is Odd";
       }else{
         clue += "The random number is placed 1nd half of the range";
-        clue += (rand%2 === 0)? "and is Even": " and is Odd";
+        clue += (rand%2 === 0)? " and is Even": " and is Odd";
 
       }
       return clue;
@@ -94,51 +94,87 @@ export default function Example() {
 
   
 const setClue = (number,rand,attempt) => {
-  var clue = "tharun";
-  console.log(number,rand,attempt);
+  var clue = "";
+  console.log(number,rand[0],attempt);
 
   switch (attempt) {
     case 4:
-      return function clueFour() {
-        if(number === 1 || number === 2){
+      function clueFour() {
+        if(rand[0] === 1 || rand[0] === 2){
           clue += "Is Prime Number"
-        }else if( number%2 || number%3 || number%5 || number%7 !== 0){
-          clue += "Is Prime Number"
+        }else if( (rand[0]%2 === 0 || rand[0]%3 === 0 || rand[0]%5 === 0 || rand[0]%7 === 0)){
+          clue += "Is Not Prime Number"
         }else{
-          clue += "Is Not a Prime Number"
+          clue += "Is  Prime Number"
         }
-     
+        return clue;
       }
+      clueFour();
       break;
     case 3:
-      
+      function clueThree() {
+        if(rand > number){
+          clue += `Winning Number is greater than ur Guess ${number}`;
+        }else{
+          clue += `Winning Number is lesser than ur Guess ${number}`
+        }
+        return clue;
+      }
+      clueThree();
       break;
     case 2:
-      
+      function clueTwo() {
+        if(rand < 10){
+          clue += "The Winning Number is single length Number"
+        }else{
+            if(number > rand && (number - rand) > 25 ){
+              clue += `The winning numberr range is Upto ${(parseInt(rand)+20)}`;
+
+            }else if(rand > number && (rand - number) > 25 ){
+              clue += `The winning numberr range is Upto ${(parseInt(rand)+20)}`;
+
+            }else if(rand > (localStorage.getItem("range")-10)){
+              clue += "The winning number is nearest to the set range value"
+            }else{
+              clue += `The winning numberr range is Upto ${(parseInt(rand)+20)}`;
+
+            }
+        }
+       }
+       
+       clueTwo();
       break;
     case 1:
-      
+       function clueOne() { 
+         if(rand > 9){
+          clue += `Last degit of this winning number ${parseInt(rand%10)}`;
+
+         }else{
+           clue += `you have only 9 posibilities just think to win`
+         }
+         return clue;
+
+       }
+       clueOne();
       break;
     default:
       break;
   }
 
-  console.log(clue)
+  setProperty({...property,clue:clue,attempts:attempt-1});
+
 }
  
 const submitHandle = () => {
   console.log("hi")
-  if(property.number === random){
+  // eslint-disable-next-line eqeqeq
+  if(property.number == random){
     alert("you won tha game");
    
   }else{
     setClue(property.number,random,property.attempts)
   }
 }
-
-
-
-
 
 
   return (
