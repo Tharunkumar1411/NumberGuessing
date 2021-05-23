@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
     width:"30%",
+    height:"fit-content",
     marginRight:"auto",
     marginLeft:"auto",
     backgroundColor:"rgba(13, 17, 38, 0.57)",
@@ -174,22 +175,14 @@ const submitHandle = () => {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        
-        <Grid item xs={12}>
+   
           <Paper className={classes.paper}>System <h5>Score is {property.progress}</h5>
-</Paper><br />
+</Paper>
           <h5 className={classes.vs}>vs</h5>
 
-          <Paper className={classes.paper}>Player        <h5>Attempts: {property.attempts}</h5>
-</Paper><br />
+          <Paper className={classes.paper}>Player <h5>Attempts: {property.attempts}</h5>
+</Paper>
 
-        </Grid>
-
-
-    
-
-      </Grid><br />
 
       
       <Card className={classes.system}>
