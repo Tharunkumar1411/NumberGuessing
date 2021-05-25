@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import { Button, Card, CardContent } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import Modal from '@material-ui/core/Modal';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -91,7 +89,7 @@ const setClue = (number,rand,attempt,progres) => {
   switch (attempt) {
     case 4:
       function clueFour() {
-        if(rand[0] === 1 || rand[0] === 2){
+        if(rand[0] === 1 || rand[0] === 2 || rand[0] === 3 ||rand[0] === 5 || rand[0] === 7){
           clue += "Is Prime Number"
         }else if( (rand[0]%2 === 0 || rand[0]%3 === 0 || rand[0]%5 === 0 || rand[0]%7 === 0)){
           clue += "Is Not Prime Number"
