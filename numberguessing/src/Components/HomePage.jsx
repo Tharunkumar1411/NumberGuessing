@@ -8,20 +8,19 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-
+import { Link } from '@material-ui/core';
+import './Home.css'
 const useStyles = makeStyles((theme) => ({
-  
+
 }));
 
 const style = {
 	borderRadius: "10px",
 	width: "4rem",
 	height: "4rem",
-	margin: "0 auto",
 	display: "grid",
 	gridTemplate: "repeat(3, 1fr) / repeat(3, 1fr)",
-  padding: "1rem"
-
+  padding: "1rem",
 }
 
 const btnStyle = {
@@ -29,9 +28,10 @@ const btnStyle = {
   borderRadius: "10px",
 	width: "4rem",
 	height: "4rem",
-	margin: "0 auto",
 	display: "grid",
-  padding: "1rem"
+  padding: "1rem",
+  fontSize: "1rem",
+  fontWeight: "bold"
 }
 
 
@@ -42,6 +42,9 @@ const Square = (props) => {
 }
 
 export default function ButtonAppBar() {
+  const [sidebar, setSidebar] = useState(false);
+
+  const showSidebar = () => setSidebar(!sidebar);
     var state = 1 ;
     const classes = useStyles();
     var initialValue = "";
@@ -54,45 +57,102 @@ export default function ButtonAppBar() {
       [1, 4, 7],
       [2, 5, 8],
       [1, 5, 9],
-      [2, 5, 8],
+      [3, 5, 7],
     ];
+
+    var positions = [1,2,3,4,5,6,7,8,9];
 
     const selectedValues = []
     const onClick = (props) => {
-        
         document.getElementById(`${props}`).innerHTML = "X";
-        selectedValues.push(props);
+        document.getElementById(`${props}`).style.pointerEvents = "none";
+        document.getElementById(`${props}`).style.color = "green";
 
+
+        selectedValues.push(props);
         (state  === 3)? result(selectedValues): state += 1;
 
         callComputer();
     }
 
     const result = (x) => {
-        let values =  lines.map((ele) =>{ return ele.filter(e => e == x)})
-        console.log(values)
+        var resultValues;
+        for(let i=0; i < lines.length; i++){
+            resultValues = x.filter((e) => lines[i].includes(e));
+            
+            if(resultValues.length == 3){
+              break
+            }
+        }
         
+        (resultValues.length == 3)? console.log("win"): console.log("loose")
+    }
+
+    const randomValue = () => {
+        let userInput = [...selectedValues];
+        var random;
+        do {
+          random = Math.floor((Math.random() * 9) + 1); 
+        } while (userInput.includes(random));
+        userInput.push(random);
+        document.getElementById(`${random}`).style.pointerEvents = "none";
+        document.getElementById(`${random}`).style.color = "red";
+        document.getElementById(`${random}`).innerHTML = "O";
+
+        // console.log(random)
     }
 
     const callComputer = () => {
+        const Random = randomValue();
 
     }
 
 
+    const SidebarData = [
+      {
+        title: 'Home',
+        path: '/',
+        cName: 'nav-text'
+      },
+      {
+        title: 'Reports',
+        path: '/reports',
+        cName: 'nav-text'
+      },
+      {
+        title: 'Products',
+        path: '/products',
+        cName: 'nav-text'
+      },
+    ];
+
     return (
         <div className={classes.root}>
-        <AppBar position="static">
-            <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-                News
-            </Typography>
-            <Button color="inherit">Login</Button>
-            </Toolbar>
-        </AppBar>
 
+
+         <div className='navbar'>
+          <Link to='#' className='menu-bars'>
+            <button onClick={showSidebar} />
+          </Link>
+        </div>
+        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
+          <ul className='nav-menu-items' onClick={showSidebar}>
+            <li className='navbar-toggle'>
+              <Link to='#' className='menu-bars'>
+                tharun
+              </Link>
+            </li>
+            {SidebarData.map((item, index) => {
+              return (
+                <li key={index} className={item.cName}>
+                  <Link to={item.path}>
+                    <span>{item.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
           <div style={style}>
               <Square id="1" value={initialValue} onClick={() => onClick(1)} />
               <Square id="2" value={initialValue} onClick={() => onClick(2)} />
