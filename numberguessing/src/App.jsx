@@ -1,9 +1,8 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter,Switch,Route} from 'react-router-dom';
-
+import HomePage from './Components/HomePage';
 import Entrance from './Entrance/Entry';
-import Home from './GamePage/game'
 
 function App(){
 
@@ -12,10 +11,9 @@ function App(){
             <BrowserRouter>
                 <Switch>
                     <Route path="/" exact component={Entrance} />
-                    <Route path="/gamepage" component={Home} />
+                    <Route path="/homepage" exact component={HomePage} />
                 </Switch>
             </BrowserRouter>
-           
         </div>
     )
 }

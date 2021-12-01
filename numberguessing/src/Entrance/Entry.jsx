@@ -35,54 +35,42 @@ function Entry(){
           
   const submitHandler = (e) => {
     e.preventDefault()
-   console.log(age)
+    console.log(age)
 
     localStorage.setItem("name",details.name);
     localStorage.setItem("range",age);
-    history.push("/gamepage")
+    history.push("/homepage")
   }
     return(
-        <div>
-            <h1 className="header">GUESSING GAME</h1>
+        <div className="area">
             <Card className="login" style={{width:'16rem',textAlign:'center',marginTop:'50px',backgroundColor:"  rgb(194, 45, 181)"}}>
-                <h5>GETIN</h5>
+                <h5>WEB GAME</h5>
             </Card>
+
+            <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+            </ul>
+
             <Card className="login1" style={{width:'16rem',textAlign:'center'}}>
                 <Card.Body>
                     <Form onSubmit={submitHandler}>
                         <TextField type="text" placeholder="Name" onChange= {e =>setDetails({...details,name:e.target.value})} value={details.name}  required></TextField><br /><br />
-
-
- 
-                        <Select
-                                labelId="demo-controlled-open-select-label"
-                                id="demo-controlled-open-select"
-                                open={open}
-                                onClose={handleClose}
-                                onOpen={handleOpen}
-                                value={age}
-                                onChange={handleChange}>
-                                    
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={100}>0-100</MenuItem>
-                            <MenuItem value={1000}>100-1000</MenuItem>
-                            <MenuItem value={10000}>1000-10000</MenuItem>
-                            </Select>
-
-
-                
                     </Form><br />
                     <button className="buttonStyle" onClick={submitHandler} value="login" >ENTER</button><br /><br />
-
                 </Card.Body>
             </Card>
-
-           
         </div>
 
-
+        
     );
 }
 
