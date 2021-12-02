@@ -12,8 +12,7 @@ import Select from '@material-ui/core/Select';
 import {  TextField } from '@material-ui/core';
 
 function Entry(){
- 
-   
+
   const [details,setDetails] = useState({name:"",range:0});
 
   const history = useHistory()
